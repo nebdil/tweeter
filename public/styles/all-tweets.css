@@ -1,0 +1,89 @@
+#all-tweets {
+  background-color: white;
+  margin: 2em;
+  border-radius: 6px;
+  border: 1px solid;
+  border-color: #D3D3D3;
+  color: #708090;
+}
+
+/*HEADER-RELATED*/
+
+#all-tweets header {
+  background-color: #eee;
+  padding: 10px;
+  height: 80px;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+}
+
+#all-tweets header img {
+  height: 60px;
+  width: 60px;
+  border-radius: 6px;
+  float: left;
+  margin-right: 15px;
+}
+
+#name {
+  display: inline-block;
+  margin: auto;
+  float: left;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+#username {
+  display: inline-block;
+  float: right;
+  margin: auto;
+  color: #A9A9A9;
+}
+
+/*TWEET-RELATED*/
+
+#all-tweets article {
+  height: 90px;
+  padding: 10px;
+}
+
+#all-tweets article p {
+  margin: auto;
+}
+
+/*FOOTER-RELATED*/
+
+#all-tweets footer {
+  border-top: 1px solid;
+  border-top-color: #D3D3D3;
+  height: 42px;
+  padding: 14px;
+  font-size: 14px;
+}
+
+#all-tweets footer p {
+  margin: auto;
+  display: inline-block;
+}
+
+#all-tweets footer i.fa {
+  float: right;
+  color: #00a087;
+  padding: 2px;
+  margin: auto;
+  display: inline-block;
+  opacity: 0;
+}
+
+#all-tweets:hover i.fa {
+  opacity: 1;
+}
+
+#all-tweets:hover {
+  border-color: #244751;
+  color: #244751;
+}
+
+#all-tweets:hover #username {
+  color: #708090;
+}
