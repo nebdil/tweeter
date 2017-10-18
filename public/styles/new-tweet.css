@@ -5,6 +5,7 @@ section.new-tweet {
   padding: 10px;
   border: 1px solid;
   border-color: #D3D3D3;
+  display: none;
 }
 
 section.new-tweet h2 {

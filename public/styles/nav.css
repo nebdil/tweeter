@@ -22,4 +22,21 @@
   float: left;
   font-size: 200%;
   line-height: 2.5;
+
+}
+
+.compose {
+  border: 1px solid black;
+  float: right;
+  height: 50px;
+  width: 100px;
+  margin-top: 15px;
+  color: #00a087;
+  border-radius: 6px;
+  background-color: white;
+  font-weight: bold;
+}
+
+.compose:hover {
+  background-color: #eee;
 }

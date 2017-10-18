@@ -109,12 +109,6 @@ function calculateSince(datetime)
 //   longInput: 'You have exceeded the letter limit'
 // }
 
-
-var renderTweets = function(tweets) {
-  var loopedTweets = tweets.map(createTweetElement);
-  $('#all-tweets').prepend(loopedTweets);
-};
-
 var createTweetElement = function(tweet) {
   // Clone of the hidden article template from the DOM
   var $article = $('#article-template').clone();
@@ -132,6 +126,11 @@ var createTweetElement = function(tweet) {
   return $article;
 }
 
+var renderTweets = function(tweets) {
+  var loopedTweets = tweets.map(createTweetElement);
+  $('#all-tweets').prepend(loopedTweets);
+};
+
   // var $tweet = renderTweets(data);
   // // Test / driver code (temporary)
   // console.log($tweet); // to see what it looks like
@@ -145,9 +144,9 @@ $(function(){
     var textInputLength = $(this).find('textarea').val().length;
     // console.log(textInputLength);
     if (!textInput) {
-      alert('nothing');
+      alert('There is nothing to tweet!');
     } else if (textInputLength > 140) {
-      alert('too long');
+      alert('The tweet exceeds the letter limit');
     } else {
       $.ajax({
         url: '/tweets/',
@@ -158,6 +157,7 @@ $(function(){
           renderTweets([newPost]);
         }
       });
+      this.reset();
     }
   });
   // renderTweets(data);
@@ -175,5 +175,8 @@ $(function(){
   };
   loadTweets();
 
+  $('.compose').on('click', function() {
+    $('.new-tweet').slideToggle("slow");
+    $('textarea').focus();
+  });
 });
-//////////////////////
