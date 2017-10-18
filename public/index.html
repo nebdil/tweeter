@@ -35,12 +35,13 @@
     <main class="container">
       <section class="new-tweet">
         <h2>Compose Tweet</h2>
-        <form action = "/tweets/" method = "POST">
+        <form action = "/tweets/" method = "POST" id = "form">
           <textarea name="text" placeholder="What are you humming about?"></textarea>
-          <input type="submit" value="Tweet">
+          <input type="submit" value="Tweet" id="new-submit">
           <span class="counter">140</span>
         </form>
       </section>
+      <!-- <p hidden id = '#errorMessage'>This is an error message.</p> -->
       <section id = "all-tweets">
         <article hidden id="article-template">
           <!-- template will be hidden normally -->

@@ -72,6 +72,7 @@
   margin: auto;
   display: inline-block;
   opacity: 0;
+  padding: 2px;
 }
 
 #all-tweets > article:hover i.fa {
