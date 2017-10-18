@@ -1,4 +1,4 @@
-#all-tweets {
+#all-tweets article {
   background-color: white;
   margin: 2em;
   border-radius: 6px;
@@ -11,10 +11,10 @@
 
 #all-tweets header {
   background-color: #eee;
-  padding: 10px;
   height: 80px;
   border-top-right-radius: 6px;
   border-top-left-radius: 6px;
+  padding: 10px;
 }
 
 #all-tweets header img {
@@ -25,7 +25,7 @@
   margin-right: 15px;
 }
 
-#name {
+.full-name {
   display: inline-block;
   margin: auto;
   float: left;
@@ -33,7 +33,7 @@
   font-size: 24px;
 }
 
-#username {
+.handle {
   display: inline-block;
   float: right;
   margin: auto;
@@ -42,8 +42,8 @@
 
 /*TWEET-RELATED*/
 
-#all-tweets article {
-  height: 90px;
+#all-tweets article > p {
+  /*height: 90px;*/
   padding: 10px;
 }
 
@@ -57,8 +57,8 @@
   border-top: 1px solid;
   border-top-color: #D3D3D3;
   height: 42px;
-  padding: 14px;
   font-size: 14px;
+  padding: 14px;
 }
 
 #all-tweets footer p {
@@ -69,21 +69,20 @@
 #all-tweets footer i.fa {
   float: right;
   color: #00a087;
-  padding: 2px;
   margin: auto;
   display: inline-block;
   opacity: 0;
 }
 
-#all-tweets:hover i.fa {
+#all-tweets > article:hover i.fa {
   opacity: 1;
 }
 
-#all-tweets:hover {
+#all-tweets > article:hover {
   border-color: #244751;
   color: #244751;
 }
 
-#all-tweets:hover #username {
+#all-tweets > article:hover .handle {
   color: #708090;
 }

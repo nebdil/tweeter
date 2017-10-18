@@ -42,20 +42,21 @@
         </form>
       </section>
       <section id = "all-tweets">
-        <header>
-          <img src = 'https://d2d00szk9na1qq.cloudfront.net/Product/d064f34d-7cb8-450c-83db-01e9d903512b/Images/Large_UL-889.jpg'>
-          <p id = "name">Bill Fields</p>
-          <p id = "username">@MrFields</p>
-        </header>
-        <article>
-          <p>Little tweet here</p>
+        <article hidden id="article-template">
+          <!-- template will be hidden normally -->
+          <header>
+            <img class="avatar" src = 'https://d2d00szk9na1qq.cloudfront.net/Product/d064f34d-7cb8-450c-83db-01e9d903512b/Images/Large_UL-889.jpg'>
+            <p class="full-name">Bill Fields</p>
+            <p class="handle">@MrFields</p>
+          </header>
+          <p class="tweet">Little tweet here</p>
+          <footer>
+            <p class="duration">10 days ago</p>
+            <i class="fa fa-flag" aria-hidden="true"></i>
+            <i class="fa fa-retweet" aria-hidden="true"></i>
+            <i class="fa fa-heart" aria-hidden="true"></i>
+          </footer>
         </article>
-        <footer>
-          <p>10 days ago</p>
-          <i class="fa fa-flag" aria-hidden="true"></i>
-          <i class="fa fa-retweet" aria-hidden="true"></i>
-          <i class="fa fa-heart" aria-hidden="true"></i>
-        </footer>
       </section>
     </main>
 
