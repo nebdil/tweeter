@@ -4,61 +4,9 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
+// Timestamp to normal time:
 
-// Test / driver code (temporary). Eventually will get this from the server.
-// Fake data taken from tweets.json
-// var data = [
-//   {
-//     "user": {
-//       "name": "Newton",
-//       "avatars": {
-//         "small":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_50.png",
-//         "regular": "https://vanillicon.com/788e533873e80d2002fa14e1412b4188.png",
-//         "large":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_200.png"
-//       },
-//       "handle": "@SirIsaac"
-//     },
-//     "content": {
-//       "text": "If I have seen further it is by standing on the shoulders of giants"
-//     },
-//     "created_at": 1461116232227
-//   },
-//   {
-//     "user": {
-//       "name": "Descartes",
-//       "avatars": {
-//         "small":   "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_50.png",
-//         "regular": "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc.png",
-//         "large":   "https://vanillicon.com/7b89b0d8280b93e2ba68841436c0bebc_200.png"
-//       },
-//       "handle": "@rd" },
-//     "content": {
-//       "text": "Je pense , donc je suis"
-//     },
-//     "created_at": 1461113959088
-//   },
-//   {
-//     "user": {
-//       "name": "Johann von Goethe",
-//       "avatars": {
-//         "small":   "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_50.png",
-//         "regular": "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1.png",
-//         "large":   "https://vanillicon.com/d55cf8e18b47d4baaf60c006a0de39e1_200.png"
-//       },
-//       "handle": "@johann49"
-//     },
-//     "content": {
-//       "text": "Es ist nichts schrecklicher als eine tätige Unwissenheit."
-//     },
-//     "created_at": 1461113796368
-//   }
-// ];
-
-//TIME
-$(function(){
-
-function calculateSince(datetime)
-{
+function calculateSince(datetime) {
   var tTime=new Date(datetime);
   var cTime=new Date();
   var sinceMin=Math.round((cTime-tTime)/60000);
@@ -104,21 +52,15 @@ function calculateSince(datetime)
 };
 
 
-//TIME
-
-// var errorDB = {
-//   emptyString: 'You are trying to submit an empty tweet',
-//   longInput: 'You have exceeded the letter limit'
-// }
+// Constructing the new tweet HTML via cloning the HTML template that was made in index.html, which is hidden
 
 var createTweetElement = function(tweet) {
+  let time = calculateSince(tweet['created_at']);
   // Clone of the hidden article template from the DOM
-  var $article = $('#article-template').clone();
-  var time = calculateSince(tweet['created_at']);
-  // var $errorM = $('#errorMessage').clone();
+  let $article = $('#article-template').clone();
   // Remove hidden property from Clone
   $article.removeAttr('hidden');
-  // Add full name
+  // Retrieve and add user & tweet info
   $article.find('.full-name').text(tweet['user']['name']);
   $article.find('.handle').text(tweet['user']['handle']);
   $article.find('.duration').text(time);
@@ -128,29 +70,31 @@ var createTweetElement = function(tweet) {
   return $article;
 }
 
-var renderTweets = function(tweets) {
-  var loopedTweets = tweets.map(createTweetElement);
+// Take in an array and prepend them into the container by making use of the createTweetElement function
+
+const renderTweets = function(tweets) {
+  let loopedTweets = tweets.map(createTweetElement);
   loopedTweets.forEach(function(e) {
     $('#all-tweets').prepend(e);
   });
 };
 
-  // var $tweet = renderTweets(data);
-  // // Test / driver code (temporary)
-  // console.log($tweet); // to see what it looks like
-  // $('#all-tweets').append($tweet);
-   // to add it to the page so we can make sure it's got all the right elements, classes, etc.
+// Start using JQuery when the document is ready
+
+$(function(){
+//once the new tweet is submitted by the user:
   $('#form').submit(function (event) {
-    console.log('Button clicked, performing ajax call...');
+    // console.log('Button clicked, performing ajax call...');
     event.preventDefault();
+    //do it async, page shouldn't be redirected
     var textInput = $(this).find('textarea').val();
     var textInputLength = $(this).find('textarea').val().length;
     // console.log(textInputLength);
-    if (!textInput) {
+    if (!textInput) { //if nothing was written
       alert('There is nothing to tweet!');
     } else if (textInputLength > 140) {
       alert('The tweet exceeds the letter limit');
-    } else {
+    } else { //if everything is correct: send the new tweet to the db
       $.ajax({
         url: '/tweets/',
         method: 'POST',
@@ -160,11 +104,11 @@ var renderTweets = function(tweets) {
           renderTweets([newPost]);
         }
       });
-      this.reset();
-      loadTweets();
+      this.reset(); //erase the tweet from the textarea
     }
   });
-  // renderTweets(data);
+
+// Get the tweets on the page once you navigate to the page
 
   var loadTweets = function() {
     $.ajax({
@@ -178,6 +122,8 @@ var renderTweets = function(tweets) {
     });
   };
   loadTweets();
+
+// Once clicked, compose button will show the form to write a tweet & automatically the textarea is focused
 
   $('.compose').on('click', function() {
     $('.new-tweet').slideToggle("slow", function() {
