@@ -55,6 +55,8 @@
 // ];
 
 //TIME
+$(function(){
+
 function calculateSince(datetime)
 {
   var tTime=new Date(datetime);
@@ -138,7 +140,6 @@ var renderTweets = function(tweets) {
   // console.log($tweet); // to see what it looks like
   // $('#all-tweets').append($tweet);
    // to add it to the page so we can make sure it's got all the right elements, classes, etc.
-$(function(){
   $('#form').submit(function (event) {
     console.log('Button clicked, performing ajax call...');
     event.preventDefault();
@@ -160,6 +161,7 @@ $(function(){
         }
       });
       this.reset();
+      loadTweets();
     }
   });
   // renderTweets(data);

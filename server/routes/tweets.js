@@ -12,10 +12,11 @@ module.exports = function(DataHelpers) {
       if (err) {
         res.status(500).json({ error: err.message });
       } else {
-        res.json(tweets);
-      }
+        console.log(tweets);
+          res.json(tweets);
+        }
+      })
     });
-  });
 
   tweetsRoutes.post("/", function(req, res) {
     if (!req.body.text) {
@@ -42,5 +43,4 @@ module.exports = function(DataHelpers) {
   });
 
   return tweetsRoutes;
-
-}
+};
