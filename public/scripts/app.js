@@ -128,7 +128,9 @@ var createTweetElement = function(tweet) {
 
 var renderTweets = function(tweets) {
   var loopedTweets = tweets.map(createTweetElement);
-  $('#all-tweets').prepend(loopedTweets);
+  loopedTweets.forEach(function(e) {
+    $('#all-tweets').prepend(e);
+  });
 };
 
   // var $tweet = renderTweets(data);
@@ -176,7 +178,8 @@ $(function(){
   loadTweets();
 
   $('.compose').on('click', function() {
-    $('.new-tweet').slideToggle("slow");
-    $('textarea').focus();
+    $('.new-tweet').slideToggle("slow", function() {
+      $('textarea').focus();
+    });
   });
 });
