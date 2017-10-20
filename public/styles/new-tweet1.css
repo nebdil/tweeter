@@ -1,0 +1,29 @@
+section .new-tweet {
+  background-color: #eee;
+  margin: auto 2em;
+  border-radius: 6px;
+  padding: 10px;
+  border: 1px solid;
+  border-color: #D3D3D3;
+  display: none; }
+  section .new-tweet h2 {
+    border-bottom: 1px solid black;
+    margin-top: 10px;
+    margin-bottom: 10px; }
+section span .counter {
+  position: relative;
+  font-style: italic;
+  color: #A9A9A9;
+  float: right;
+  margin: 5px; }
+section span .red {
+  color: red; }
+section input {
+  position: relative; }
+section textarea {
+  width: 100%;
+  padding: 5px;
+  height: 70px;
+  margin-bottom: 5px; }
+
+/*# sourceMappingURL=new-tweet1.css.map */

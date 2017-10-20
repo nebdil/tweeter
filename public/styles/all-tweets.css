@@ -70,13 +70,16 @@
   float: right;
   color: #00a087;
   margin: auto;
-  display: inline-block;
-  opacity: 0;
+  display: none;
   padding: 2px;
 }
 
-#all-tweets > article:hover i.fa {
-  opacity: 1;
+#all-tweets > article:hover .fa {
+  display: inline-block;
+}
+
+#all-tweets > article:hover .like-counter {
+  display: inline-block;
 }
 
 #all-tweets > article:hover {
@@ -86,4 +89,11 @@
 
 #all-tweets > article:hover .handle {
   color: #708090;
+}
+
+#all-tweets footer p.like-counter {
+  float: right;
+  font-size: 10px;
+  padding-top: 4px;
+  display: none;
 }
