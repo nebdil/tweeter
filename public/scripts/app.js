@@ -67,6 +67,7 @@ var createTweetElement = function(tweet) {
   $article.find('.tweet').text(tweet['content']['text']);
   // cross-site scripting
   $article.find('.avatar').attr("src", (tweet['user']['avatars']['small']));
+  $article.find('#like-button').attr('data-id', tweet['_id']);
   return $article;
 }
 
@@ -76,6 +77,32 @@ const renderTweets = function(tweets) {
   let loopedTweets = tweets.map(createTweetElement);
   loopedTweets.forEach(function(e) {
     $('#all-tweets').prepend(e);
+    bindLikeButton();
+  });
+};
+
+// Like button function
+
+var bindLikeButton = function () {
+  $('#like-button').click(function () {
+    let likes = $(this).parent().find('.like-counter').html();
+    if($(this).hasClass('fa-heart-o')) {
+      $(this).removeClass('fa-heart-o').addClass('fa-heart');
+      // console.log(likes);
+      likes++;
+      $(this).parent().find('.like-counter').attr('data-likes', likes);
+      // console.log(likes);
+      $(this).parent().find('.like-counter').html(likes);
+      }
+    else if($(this).hasClass('fa-heart')) {
+      $(this).removeClass('fa-heart').addClass('fa-heart-o');
+      // console.log(likes);
+      likes--;
+      $(this).parent().find('.like-counter').attr('data-likes', likes);
+      // console.log(likes);
+      $(this).parent().find('.like-counter').html(likes);
+    }
+
   });
 };
 
@@ -105,23 +132,24 @@ $(function(){
         }
       });
       this.reset(); //erase the tweet from the textarea
+      $('.counter').text(140);
     }
   });
 
 // Get the tweets on the page once you navigate to the page
 
-  var loadTweets = function() {
-    $.ajax({
-      url: '/tweets/',
-      method: 'GET',
-      dataType: 'json',
-      success: function(res) {
-        // console.log(res);
-        renderTweets(res);
-      }
-    });
-  };
-  loadTweets();
+var loadTweets = function() {
+   $.ajax({
+     url: '/tweets/',
+     method: 'GET',
+     dataType: 'json',
+     success: function(res) {
+       // console.log(res);
+       renderTweets(res);
+     }
+   });
+ };
+ loadTweets();
 
 // Once clicked, compose button will show the form to write a tweet & automatically the textarea is focused
 
@@ -130,4 +158,5 @@ $(function(){
       $('textarea').focus();
     });
   });
+
 });
