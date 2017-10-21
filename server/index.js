@@ -3,6 +3,7 @@
 // MONGODB setup:
 const MongoClient = require("mongodb").MongoClient;
 const MONGODB_URI = "mongodb://localhost:27017/tweeter";
+const ObjectId = require('mongodb').ObjectId;
 
 // Basic express setup:
 const PORT          = 8080;

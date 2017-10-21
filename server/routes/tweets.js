@@ -11,7 +11,7 @@ module.exports = function(DataHelpers) {
       if (err) {
         res.status(500).json({ error: err.message });
       } else {
-        console.log(tweets);
+        // console.log(tweets);
           res.json(tweets);
         }
       })
@@ -37,6 +37,17 @@ module.exports = function(DataHelpers) {
         res.status(201).json(tweet);
       }
     });
+  });
+  tweetsRoutes.post('/:id', function(req, res) {
+    DataHelpers.saveLikes(req.params.id, req.body, (err) => {
+      if (err) {
+        res.status(500).json({ error: err.message });
+      } else {
+        // console.log(req.params.id);
+        // console.log(req.body);
+        res.status(201).json(req.body.likes);
+      }
+    })
   });
   return tweetsRoutes;
 };

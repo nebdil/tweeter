@@ -55,7 +55,9 @@
             <p class="duration">10 days ago</p>
             <i class="fa fa-flag" aria-hidden="true"></i>
             <i class="fa fa-retweet" aria-hidden="true"></i>
-            <i id="like-button" class="fa fa-heart-o" aria-hidden="true"></i>
+            <form method = "POST" action = `/tweets/${id}`>
+              <i id="like-button" class="fa fa-heart-o" aria-hidden="true"></i>
+            </form>
             <p class="like-counter" data-likes='0'>0</p>
           </footer>
         </article>

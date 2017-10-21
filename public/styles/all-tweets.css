@@ -78,6 +78,12 @@
   display: inline-block;
 }
 
+#all-tweets > article:hover form {
+  float: right;
+  display: inline-block;
+  padding-top: -2px;
+}
+
 #all-tweets > article:hover .like-counter {
   display: inline-block;
 }
