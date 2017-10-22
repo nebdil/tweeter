@@ -12,22 +12,14 @@ module.exports = function makeDataHelpers(db) {
     getTweets: function(callback) {
       db.collection("tweets").find().toArray(callback);
     },
+    // Save the like count when the tweet is liked or disliked
     saveLikes: function(id, like, callback) {
-      // console.log(ObjectId);
-      // console.log(id);
-      console.log("like.likes: " + like.likes);
       if (like.likes == 1) {
         db.collection("tweets").update({"_id" : ObjectId(`${id}`)}, {$set: {'likes': 0 }}, {upsert: true}, callback);
-        // return like.likes = 1;
-        console.log('decremented');
         like.likes = 0;
-        console.log("new like.likes: " + like.likes);
       } else if (like.likes == 0) {
         db.collection("tweets").update({"_id" : ObjectId(`${id}`)}, {$set: {'likes': 1 }}, {upsert: true}, callback);
-        // return like.likes = 0;
-        console.log('incremented');
         like.likes = 1;
-        console.log("new like.likes: " + like.likes);
       }
     }
   };

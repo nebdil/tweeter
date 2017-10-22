@@ -1,9 +1,3 @@
-/*
- * Client-side JS logic goes here
- * jQuery is already loaded
- * Reminder: Use (and do all your DOM work in) jQuery's document ready function
- */
-
 // Timestamp to normal time:
 
 function calculateSince(datetime) {
@@ -65,11 +59,11 @@ var createTweetElement = function(tweet) {
   $article.find('.handle').text(tweet['user']['handle']);
   $article.find('.duration').text(time);
   $article.find('.tweet').text(tweet['content']['text']);
-  // cross-site scripting
   $article.find('.avatar').attr("src", (tweet['user']['avatars']['small']));
   $article.find('#like-button').attr('data-id', tweet['_id']);
   $article.find('.like-counter').text(tweet['likes']);
   $article.find('.like-counter').attr('data-likes', tweet['likes']);
+  // Decide whether the tweet has a like or not
   if (tweet['likes'] === 1) {
     $article.find('#like-button').removeClass('fa-heart-o').addClass('fa-heart');
   }
@@ -92,69 +86,33 @@ const renderTweets = function(tweets) {
 // Like button function
 
 var bindLikeButton = function () {
-
   $('#like-button').click(function () {
     let likes = parseInt($(this).parent().parent().find('.like-counter').html());
     let likesObj = {'likes': likes};
-    // console.log(likesObj.likes);
     let id = $(this).attr('data-id');
     $(this).toggleClass('fa-heart-o fa-heart');
     let $likeCounter = $(this).parent().parent().find('.like-counter');
-    // if ($likeCounter === 0) {
-    //   $likeCounter = 1;
-    //   id = 1;
-    // }
-    // if ($likeCounter === 1) {
-    //   $likeCounter = 0;
-    //   id = 0;
-    // }
-    // if($(this).hasClass('fa-heart-o')) {
-    //   $(this).removeClass('fa-heart-o').addClass('fa-heart');
-    //   // $(this).parent().parent().find('.like-counter').attr('data-likes', likes);
-    //   // $(this).parent().parent().find('.like-counter').html(likes);
-    //   }
-    // if($(this).hasClass('fa-heart')) {
-    //   $(this).removeClass('fa-heart').addClass('fa-heart-o');
-
-    //   // $(this).parent().parent().find('.like-counter').attr('data-likes', likes);
-    //   // $(this).parent().parent().find('.like-counter').html(likes);
-    // }
-    console.log('right before ajax');
     $.ajax({
       url: `/tweets/${id}`,
       method: 'POST',
       dataType: 'json',
       data: likesObj,
       success: function(info) {
-        // console.log('In Ajax for updating likes');
-        // console.log(info);
-        // $('.like-counter').attr('data-likes', info);
-        id = info;
-        // $('.like-counter').html(info);
+        $likeCounter.attr('data-likes', info);
         $likeCounter.html(info);
-        // console.log('just did');
-        // if($('#like-button').hasClass('fa-heart-o')) {
-        //   $('#like-button').removeClass('fa-heart-o').addClass('fa-heart');
-        // }
-        // if ($('#like-button').hasClass('fa-heart')) {
-        //   $('#like-button').removeClass('fa-heart').addClass('fa-heart-o');
-        // }
       }
     })
   });
 }
 
 // Start using JQuery when the document is ready
-
 $(function(){
 //once the new tweet is submitted by the user:
   $('#form').submit(function (event) {
-    // console.log('Button clicked, performing ajax call...');
     event.preventDefault();
     //do it async, page shouldn't be redirected
     var textInput = $(this).find('textarea').val();
     var textInputLength = $(this).find('textarea').val().length;
-    // console.log(textInputLength);
     if (!textInput) { //if nothing was written
       alert('There is nothing to tweet!');
     } else if (textInputLength > 140) {
@@ -165,7 +123,6 @@ $(function(){
         method: 'POST',
         data: $(this).serialize(),
         success: function (newPost) {
-          // console.log(newPost);
           renderTweets([newPost]);
         }
       });
@@ -182,7 +139,6 @@ var loadTweets = function() {
      method: 'GET',
      dataType: 'json',
      success: function(res) {
-       // console.log(res);
        renderTweets(res);
      }
    });
