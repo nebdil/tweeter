@@ -26,7 +26,8 @@ module.exports = function(DataHelpers) {
       content: {
         text: req.body.text
       },
-      created_at: Date.now()
+      created_at: Date.now(),
+      likes: 0
     };
     // Call the saveTweet function from DataHelpers, throw an error if anything goes wrong, if not save the tweet
     DataHelpers.saveTweet(tweet, (err) => {
@@ -39,13 +40,25 @@ module.exports = function(DataHelpers) {
   });
   // Call the saveLikes function from DataHelpers, throw an error if anything goes wrong, if not save the like
   tweetsRoutes.post('/:id', function(req, res) {
-    DataHelpers.saveLikes(req.params.id, req.body, (err) => {
-      if (err) {
-        res.status(500).json({ error: err.message });
-      } else {
-        res.status(201).json(req.body.likes);
-      }
-    })
+    if (req.body.heart == 0) {
+      DataHelpers.saveLikes(req.params.id, req.body, 1, (err) => {
+        if (err) {
+          res.status(500).json({ error: err.message });
+        } else {
+          // let num = parseInt(req.body.likes);
+          res.status(201).json(req.body);
+        }
+      })
+    }
+    if (req.body.heart == 1) {
+      DataHelpers.saveLikes(req.params.id, req.body, -1, (err) => {
+        if (err) {
+          res.status(500).json({ error: err.message });
+        } else {
+          res.status(201).json(req.body);
+        }
+      })
+    }
   });
   return tweetsRoutes;
 };

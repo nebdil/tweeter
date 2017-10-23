@@ -64,7 +64,7 @@ var createTweetElement = function(tweet) {
   $article.find('.like-counter').text(tweet['likes']);
   $article.find('.like-counter').attr('data-likes', tweet['likes']);
   // Decide whether the tweet has a like or not
-  if (tweet['likes'] === 1) {
+  if (tweet['likes'] > 0) {
     $article.find('#like-button').removeClass('fa-heart-o').addClass('fa-heart');
   }
   if (tweet['likes'] === 0) {
@@ -88,18 +88,26 @@ const renderTweets = function(tweets) {
 var bindLikeButton = function () {
   $('#like-button').click(function () {
     let likes = parseInt($(this).parent().parent().find('.like-counter').html());
-    let likesObj = {'likes': likes};
+    console.log(typeof(likes));
+    let $heart = $(this).hasClass('fa-heart');
+    if ($heart) {
+      $heart = 1;
+    } else {
+      $heart = 0;
+    }
+    console.log($heart);
+    let likesObj = {'likes': likes, 'heart': $heart};
     let id = $(this).attr('data-id');
-    $(this).toggleClass('fa-heart-o fa-heart');
     let $likeCounter = $(this).parent().parent().find('.like-counter');
+    $(this).toggleClass('fa-heart-o fa-heart');
     $.ajax({
       url: `/tweets/${id}`,
       method: 'POST',
       dataType: 'json',
       data: likesObj,
       success: function(info) {
-        $likeCounter.attr('data-likes', info);
-        $likeCounter.html(info);
+        $likeCounter.attr('data-likes', info.likes);
+        $likeCounter.html(info.likes);
       }
     })
   });
